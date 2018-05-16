@@ -16,18 +16,12 @@ export default class SchemaGuard {
    * @param {AttributeConfig} values The given values
    * @returns {ValidationResult} The validation result.
    */
-  public validate(values: AttributeConfig) {
-    if (!values) {
-      throw new Error('Please supply the configuration object')
+  public validate(value) {
+    if (!value) {
+      throw new Error('Please supply the value')
     }
 
-    const relationValidation = this.validateOneToOneRelation(values)
-
-    if (!relationValidation.valid) {
-      return relationValidation
-    }
-
-    return this.validateAttributes(values)
+    return this.validateValue(value)
   }
 
   /**
@@ -36,12 +30,12 @@ export default class SchemaGuard {
    * @param {string} attribute The given attribute
    * @returns {ValidationResult} The validation result
    */
-  private validateValue(value: string, attribute: string) {
-    let attributeConfig = this.config[attribute]
+  private validateValue(value: string) {
+    let attributeConfig = this.config
     let basicValidation = this.basicAttributeValidator.validate(
-      attribute,
+      'provided attribute',
       value,
-      this.config[attribute]
+      attributeConfig
     )
 
     if (!basicValidation.valid) {
@@ -54,7 +48,7 @@ export default class SchemaGuard {
       return basicValidation
     }
 
-    let validated = validator.validate(attribute, value, attributeConfig)
+    let validated = validator.validate('provided attribute', value, attributeConfig)
 
     if (!validated.valid) {
       return validated
@@ -87,49 +81,5 @@ export default class SchemaGuard {
         validated.addError(attributeConfig.validate.message)
       }
     }
-  }
-
-  /**
-   * This method iterates through all attributes and validates the value based on the
-   * configuration. Throws a hard error if the type property doesn't exist since its mandatory
-   * @param {AttributeConfig} attributes The list of attributes in object [key,value] pair format.
-   * @returns {ValidationResult} The validation result
-   */
-  private validateAttributes(attributes: AttributeConfig) {
-    let validated = new ValidationResult()
-
-    for (const key of Object.keys(attributes)) {
-      if (this.config[key].type === undefined) {
-        throw new Error(`Please provide a type property for attribute ${key}`)
-      }
-
-      let isValidFromValue = this.validateValue(attributes[key], key)
-      if (!isValidFromValue.valid) {
-        validated.addError(isValidFromValue.errors[0].message)
-      }
-    }
-    return validated
-  }
-
-  /**
-   * This method validates the one to one relation between given attributes and
-   * the existing configuration attributes. Generally they should exist both ways, unless specified
-   * by the "required" attribute.
-   * Required attribute follow the mongoose Schema like way, and is an array with the first parameter being
-   * true/false and the second one the error message
-   * @param values { AttributeConfig}  The given values
-   * @returns {ValidationResult} The validation result
-   */
-  private validateOneToOneRelation(values: AttributeConfig) {
-    let validated = new ValidationResult()
-
-    for (const key of Object.keys(this.config)) {
-      if (values[key] === undefined && this.config[key].required && this.config[key].required[0]) {
-        validated.addError(this.config[key].required[1])
-        break
-      }
-    }
-
-    return validated
   }
 }

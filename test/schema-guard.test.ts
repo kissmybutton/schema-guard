@@ -66,208 +66,137 @@ describe('Schema-guard tests', () => {
     ]
 
     for (let test of tests) {
-      const config = {
-        animated: {
-          width: {
-            type: test.type
-          }
-        }
-      }
-      let validator = new Validator(config.animated)
+      const config = { type: test.type }
+      let validator = new Validator(config)
 
-      const givenData = {
-        animatedAttrs: {
-          width: test.givenValue
-        }
-      }
+      const givenData = test.givenValue
 
-      let validation = validator.validate(givenData.animatedAttrs)
+      let validation = validator.validate(givenData)
       expect(validation.valid).toBeFalsy()
     }
   })
 
   it('should pass successfully when value is string', () => {
-    const config = {
-      animated: {
-        width: {
-          type: 'string'
-        }
-      }
-    }
-    let validator = new Validator(config.animated)
-    const givenData = {
-      animatedAttrs: {
-        width: '100px'
-      }
-    }
+    const config = { type: 'string' }
+    let validator = new Validator(config)
+    const givenData = '100px'
 
-    let validation = validator.validate(givenData.animatedAttrs)
+    let validation = validator.validate(givenData)
     expect(validation.valid).toBeTruthy()
     expect(validation.errors.length).toEqual(0)
   })
 
   it('should pass successfully when value is number', () => {
-    const config = {
-      animated: {
-        width: {
-          type: 'number'
-        }
-      }
-    }
-    let validator = new Validator(config.animated)
+    const config = { type: 'number' }
+    let validator = new Validator(config)
 
-    const givenData = {
-      animatedAttrs: {
-        width: 100
-      }
-    }
+    const givenData = 100
 
-    let validation = validator.validate(givenData.animatedAttrs)
+    let validation = validator.validate(givenData)
     expect(validation.valid).toBeTruthy()
     expect(validation.errors.length).toEqual(0)
   })
 
   it('should pass successfully when value is integer', () => {
-    const config = {
-      animated: {
-        width: {
-          type: 'integer'
-        }
-      }
-    }
-    let validator = new Validator(config.animated)
-    const givenData = {
-      animatedAttrs: {
-        width: 100
-      }
-    }
+    const config = { type: 'integer' }
+    let validator = new Validator(config)
+    const givenData = 100
 
-    let validation = validator.validate(givenData.animatedAttrs)
+    let validation = validator.validate(givenData)
     expect(validation.valid).toBeTruthy()
     expect(validation.errors.length).toEqual(0)
   })
 
   it('should pass successfully when given type color and value is string', () => {
-    const config = {
-      animated: {
-        color: {
-          type: 'color'
-        }
-      }
-    }
-    let validator = new Validator(config.animated)
+    const config = { type: 'color' }
+    let validator = new Validator(config)
 
-    const givenData = {
-      animatedAttrs: {
-        color: '#ffffff'
-      }
-    }
+    const givenData = '#ffffff'
 
-    let validation = validator.validate(givenData.animatedAttrs)
+    let validation = validator.validate(givenData)
     expect(validation.valid).toBeTruthy()
     expect(validation.errors.length).toEqual(0)
   })
 
-  it('should show error when not given a value in required attribute', () => {
-    const config = {
-      animated: {
-        color: {
-          type: 'color',
-          required: [true, 'User phone number required']
-        }
-      }
-    }
-    let validator = new Validator(config.animated)
+  // it('should show error when not given a value in required attribute', () => {
+  //   const config = {
+  //       type: 'color',
+  //       required: [true, 'User phone number required']
+  //   }
+  //   let validator = new Validator(config)
 
-    const givenData = {
-      animatedAttrs: {
-        test: '#ffffff'
-      }
-    }
+  //   const givenData = '#ffffff'
 
-    let validation = validator.validate(givenData.animatedAttrs)
-    expect(validation.valid).toBeFalsy()
-    expect(validation.errors[0].message).toEqual('User phone number required')
-  })
+  //   let validation = validator.validate(givenData)
+  //   expect(validation.valid).toBeFalsy()
+  //   expect(validation.errors[0].message).toEqual('User phone number required')
+  // })
 
-  it('should not show error when not given a value for a non required attribute', () => {
-    const config = {
-      animated: {
-        color: {
-          type: 'color',
-          required: [true, 'User phone number required']
-        },
-        color2: {
-          type: 'color',
-          required: [false, 'User phone number required']
-        }
-      }
-    }
-    let validator = new Validator(config.animated)
+  // it('should not show error when not given a value for a non required attribute', () => {
+  //   const config = {
+  //     animated: {
+  //       type: 'object',
+  //       schema: {
+  //         color: {
+  //             type: 'color',
+  //             required: [true, 'User phone number required']
+  //           },
+  //           color2: {
+  //             type: 'color',
+  //             required: [false, 'User phone number required']
+  //           }
+  //         }
+  //       }
+  //   }
+  //   let validator = new Validator(config.animated)
 
-    const givenData = {
-      animatedAttrs: {
-        color: '#ffffff'
-      }
-    }
+  //   const givenData = {
+  //     animatedAttrs: {
+  //       color: '#ffffff'
+  //     }
+  //   }
 
-    let validation = validator.validate(givenData.animatedAttrs)
-    expect(validation.valid).toBeTruthy()
-    expect(validation.errors.length).toEqual(0)
-  })
+  //   let validation = validator.validate(givenData.animatedAttrs)
+  //   expect(validation.valid).toBeTruthy()
+  //   expect(validation.errors.length).toEqual(0)
+  // })
 
   it('should show error when given a wrong value with custom validator', () => {
     const config = {
-      animated: {
-        color: {
-          type: 'color',
-          validate: {
-            validator: function(v) {
-              return /\d{4}/.test(v) // must be 4 digits
-            },
-            message: 'my custom message'
-          },
-          required: [true, 'Please provide color']
-        }
-      }
+      type: 'color',
+      validate: {
+        validator: function(v) {
+          return /\d{4}/.test(v) // must be 4 digits
+        },
+        message: 'my custom message'
+      },
+      required: [true, 'Please provide color']
     }
-    let validator = new Validator(config.animated)
+    let validator = new Validator(config)
 
-    const givenData = {
-      animatedAttrs: {
-        color: '#ffffff'
-      }
-    }
+    const givenData = '#ffffff'
 
-    let validation = validator.validate(givenData.animatedAttrs)
+    let validation = validator.validate(givenData)
     expect(validation.valid).toBeFalsy()
     expect(validation.errors[0].message).toEqual('my custom message')
   })
 
   it('should pass when given a correct value with custom validator', () => {
     const config = {
-      animated: {
-        color: {
-          type: 'color',
-          validate: {
-            validator: function(v) {
-              return /\d{4}/.test(v) // must be at least 4 digits
-            },
-            message: 'my custom message'
-          },
-          required: [true, 'Please provide color']
-        }
-      }
+      type: 'color',
+      validate: {
+        validator: function(v) {
+          return /\d{4}/.test(v) // must be at least 4 digits
+        },
+        message: 'my custom message'
+      },
+      required: [true, 'Please provide color']
     }
-    let validator = new Validator(config.animated)
+    let validator = new Validator(config)
 
-    const givenData = {
-      animatedAttrs: {
-        color: '55552'
-      }
-    }
+    const givenData = '55552'
 
-    let validation = validator.validate(givenData.animatedAttrs)
+    let validation = validator.validate(givenData)
     expect(validation.valid).toBeTruthy()
     expect(validation.errors.length).toEqual(0)
   })
@@ -297,22 +226,14 @@ describe('Schema-guard tests', () => {
     ]
     for (let test of tests) {
       const config = {
-        animated: {
-          width: {
-            type: 'number',
-            minimum: test.min
-          }
-        }
+        type: 'number',
+        minimum: test.min
       }
-      let validator = new Validator(config.animated)
+      let validator = new Validator(config)
 
-      const givenData = {
-        animatedAttrs: {
-          width: test.givenValue
-        }
-      }
+      const givenData = test.givenValue
 
-      let validation = validator.validate(givenData.animatedAttrs)
+      let validation = validator.validate(givenData)
       expect(validation.valid).toBeTruthy()
       expect(validation.errors.length).toEqual(0)
     }
@@ -320,25 +241,17 @@ describe('Schema-guard tests', () => {
 
   it('should fail when given value is lower than the minimum value', () => {
     const config = {
-      animated: {
-        test: {
-          type: 'number',
-          minimum: 1
-        }
-      }
+      type: 'number',
+      minimum: 1
     }
-    let validator = new Validator(config.animated)
+    let validator = new Validator(config)
 
-    const givenData = {
-      animatedAttrs: {
-        test: '0'
-      }
-    }
+    const givenData = '0'
 
-    let validation = validator.validate(givenData.animatedAttrs)
+    let validation = validator.validate(givenData)
     expect(validation.valid).toBeFalsy()
     expect(validation.errors[0].message).toEqual(
-      'The value of the property test is smaller that the minimum required. Minimum value: 1'
+      'The value of the property provided attribute is smaller that the minimum required. Minimum value: 1'
     )
   })
 
@@ -367,21 +280,13 @@ describe('Schema-guard tests', () => {
     ]
     for (let test of tests) {
       const config = {
-        animated: {
-          width: {
-            type: 'number',
-            minimum: test.min
-          }
-        }
+        type: 'number',
+        minimum: test.min
       }
-      let validator = new Validator(config.animated)
-      const givenData = {
-        animatedAttrs: {
-          width: test.givenValue
-        }
-      }
+      let validator = new Validator(config)
+      const givenData = test.givenValue
 
-      let validation = validator.validate(givenData.animatedAttrs)
+      let validation = validator.validate(givenData)
       expect(validation.valid).toBeTruthy()
       expect(validation.errors.length).toEqual(0)
     }
@@ -389,50 +294,96 @@ describe('Schema-guard tests', () => {
 
   it('should fail when given value is bigger than the maximum value', () => {
     const config = {
-      animated: {
-        test: {
-          type: 'number',
-          maximum: 1
-        }
-      }
+      type: 'number',
+      maximum: 1
     }
-    let validator = new Validator(config.animated)
+    let validator = new Validator(config)
 
-    const givenData = {
-      animatedAttrs: {
-        test: '2'
-      }
-    }
+    const givenData = '2'
 
-    let validation = validator.validate(givenData.animatedAttrs)
+    let validation = validator.validate(givenData)
     expect(validation.valid).toBeFalsy()
     expect(validation.errors[0].message).toEqual(
-      'The value of the property test is bigger that the maximum required. Maximum value: 1'
+      'The value of the property provided attribute is bigger that the maximum required. Maximum value: 1'
     )
   })
 
   it("should fail when given unit doesn't exist in the configuration", () => {
     const config = {
-      animated: {
-        test: {
+      type: 'string',
+      units: {
+        enum: ['px', '%']
+      }
+    }
+    let validator = new Validator(config)
+
+    const givenData = '2pc'
+
+    let validation = validator.validate(givenData)
+    expect(validation.valid).toBeFalsy()
+    expect(validation.errors[0].message).toEqual(
+      "The attribute provided attribute doesn't allow 'pc' as units"
+    )
+  })
+
+  it('should fail when require fields are missing', () => {
+    const config = {
+      type: 'object',
+      schema: {
+        width: {
           type: 'string',
-          units: {
-            enum: ['px', '%']
+          required: [true, 'width is mandatory']
+        },
+        height: {
+          type: 'string'
+        }
+      }
+    }
+    let validator = new Validator(config)
+
+    const givenData = {
+      height: '100px'
+    }
+
+    let validation = validator.validate(givenData)
+    expect(validation.valid).toBeFalsy()
+    // expect(validation.errors[0].message).toEqual("The attribute provided attribute doesn't allow 'pc' as units")
+  })
+
+  it('should pass when given unit exists in the configuration', () => {
+    const config = {
+      type: 'object',
+      schema: {
+        width: {
+          type: 'string'
+        },
+        height: {
+          type: 'string'
+        },
+        subobject: {
+          type: 'object',
+          schema: {
+            subwidth: {
+              type: 'string'
+            }
           }
         }
       }
     }
-    let validator = new Validator(config.animated)
+
+    let validator = new Validator(config)
 
     const givenData = {
-      animatedAttrs: {
-        test: '2pc'
+      width: 'alpha',
+      height: 'beta',
+      subobject: {
+        subwidth: 'gamma'
       }
     }
 
-    let validation = validator.validate(givenData.animatedAttrs)
-    expect(validation.valid).toBeFalsy()
-    expect(validation.errors[0].message).toEqual("The attribute test doesn't allow 'pc' as units")
+    let validation = validator.validate(givenData)
+    expect(validation.valid).toBeTruthy()
+    expect(validation.errors.length).toEqual(0)
   })
 
   it('should pass when given unit exists in the configuration', () => {
@@ -470,22 +421,14 @@ describe('Schema-guard tests', () => {
     ]
     for (let test of tests) {
       const config = {
-        animated: {
-          width: {
-            type: 'string',
-            units: test.units
-          }
-        }
+        type: 'string',
+        units: test.units
       }
-      let validator = new Validator(config.animated)
+      let validator = new Validator(config)
 
-      const givenData = {
-        animatedAttrs: {
-          width: test.givenValue
-        }
-      }
+      const givenData = test.givenValue
 
-      let validation = validator.validate(givenData.animatedAttrs)
+      let validation = validator.validate(givenData)
       expect(validation.valid).toBeTruthy()
       expect(validation.errors.length).toEqual(0)
     }
