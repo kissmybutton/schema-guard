@@ -43,10 +43,10 @@ export function isString(value: any) {
   return typeof value === 'string'
 }
 
-export function isValidCSSColor(color: string) {
-  let rxValid = /^#([\da-f]{3}){1,2}$|^#([\da-f]{4}){1,2}$|(rgb|hsl)a?\((\d%?,?\s*){2,3}(\d%?)\)|(rgb|hsl)a\((\d%?,\s*){3}(0?(\.\d)?|1)?\)/i
+export function isColor(value: any) {
+  let rxValid = /^#([\da-f]{3}){1,2}$|^#([\da-f]{4}){1,2}$|(rgb|hsl)a?\((\s*-?\d+%?\s*,){2}(\s*-?\d+%?\s*)\)|(rgb|hsl)a?\((\s*-?\d+%?\s*,){3}\s*(0|(0?\.\d+)|1)\)/i
 
-  return rxValid.test(color)
+  return rxValid.test(value)
 }
 
 /**
