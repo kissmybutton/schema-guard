@@ -62,6 +62,14 @@ describe('Schema-guard tests', () => {
       {
         type: 'number',
         givenValue: {}
+      },
+      {
+        type: 'color',
+        givenValue: '#ffg'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgba(0, 0, 0, 15)'
       }
     ]
 
@@ -168,6 +176,29 @@ describe('Schema-guard tests', () => {
     expect(validation.errors.length).toEqual(0)
   })
 
+  it('should fail when given type is color and value is not a valid color', () => {
+    const config = {
+      animated: {
+        color: {
+          type: 'color'
+        }
+      }
+    }
+    let validator = new Validator(config.animated)
+
+    const givenData = {
+      animatedAttrs: {
+        color: 'rgba(0, 0, 0, 15)'
+      }
+    }
+
+    let validation = validator.validate(givenData.animatedAttrs)
+    expect(validation.valid).toBeFalsy()
+    expect(validation.errors[0].message).toEqual(
+      'The value rgba(0, 0, 0, 15) of the property color is not a valid color'
+    )
+  })
+
   it('should show error when not given a value in required attribute', () => {
     const config = {
       animated: {
@@ -251,9 +282,9 @@ describe('Schema-guard tests', () => {
           type: 'color',
           validate: {
             validator: function(v) {
-              return /\d{4}/.test(v) // must be at least 4 digits
+              return /#ffffff/.test(v)
             },
-            message: 'my custom message'
+            message: 'Must be the color white'
           },
           required: [true, 'Please provide color']
         }
@@ -263,7 +294,7 @@ describe('Schema-guard tests', () => {
 
     const givenData = {
       animatedAttrs: {
-        color: '55552'
+        color: '#ffffff'
       }
     }
 
