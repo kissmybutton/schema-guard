@@ -44,7 +44,7 @@ export function isString(value: any) {
 }
 
 export function isColor(value: any) {
-  let rxValid = /^#(?:[\da-f]{3}){1,2}$|^#(?:[\da-f]{4}){1,2}$|(rgb|hsl)a?\((\s*-?\d+\s*,){2}(\s*-?\d+\s*)\)|(rgb|hsl)a?\((\s*-?\d+%\s*,){2}(\s*-?\d+%\s*)\)|(rgb|hsl)a?\((\s*-?\d+\s*,){3}\s*(0|(0?\.\d+)|1)\)|(rgb|hsl)a?\((\s*-?\d+%\s*,){3}\s*(0|(0?\.\d+)|1)\)/i
+  let rxValid = /^#([\da-f]{3}){1,2}$|^#([\da-f]{4}){1,2}$|(rgb|hsl)a?\((\s*-?\d+\s*,){2}(\s*-?\d+\s*)\)|(rgb|hsl)a?\((\s*-?\d+%\s*,){2}(\s*-?\d+%\s*)\)|(rgb|hsl)a?\((\s*-?\d+\s*,){3}\s*(0|(0?\.\d+)|1)\)|(rgb|hsl)a?\((\s*-?\d+%\s*,){3}\s*(0|(0?\.\d+)|1)\)/i
 
   return rxValid.test(value)
 }
