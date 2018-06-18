@@ -156,47 +156,276 @@ describe('Schema-guard tests', () => {
   })
 
   it('should pass successfully when given type color and value is string', () => {
-    const config = {
-      animated: {
-        color: {
-          type: 'color'
+    const tests = [
+      {
+        type: 'color',
+        givenValue: '#ff0'
+      },
+      {
+        type: 'color',
+        givenValue: '#ff00'
+      },
+      {
+        type: 'color',
+        givenValue: '#ff00ff'
+      },
+      {
+        type: 'color',
+        givenValue: '#ff00ff00'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgb(0, 0, 0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgb(10%, 10%, 10%)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgb(0, 0, 0, 0.1)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgb(10%, 10%, 10%, 0.1)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgba(0, 0, 0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgba(10%, 10%, 10%)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgba(0, 0, 0, 0.1)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgba(10%, 10%, 10%, 0.1)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsl(0, 0, 0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsl(10%, 10%, 10%)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsl(0, 0, 0, 0.1)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsl(10%, 10%, 10%, 0.1)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsla(0, 0, 0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsla(10%, 10%, 10%)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsla(0, 0, 0, 0.1)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsla(10%, 10%, 10%, 0.1)'
+      }
+    ]
+
+    for (let test of tests) {
+      const config = {
+        animated: {
+          color: {
+            type: test.type
+          }
         }
       }
-    }
-    let validator = new Validator(config.animated)
 
-    const givenData = {
-      animatedAttrs: {
-        color: '#ffffff'
+      let validator = new Validator(config.animated)
+
+      const givenData = {
+        animatedAttrs: {
+          color: test.givenValue
+        }
       }
-    }
 
-    let validation = validator.validate(givenData.animatedAttrs)
-    expect(validation.valid).toBeTruthy()
-    expect(validation.errors.length).toEqual(0)
+      let validation = validator.validate(givenData.animatedAttrs)
+      expect(validation.valid).toBeTruthy()
+      expect(validation.errors.length).toEqual(0)
+    }
   })
 
   it('should fail when given type is color and value is not a valid color', () => {
-    const config = {
-      animated: {
-        color: {
-          type: 'color'
+    const tests = [
+      {
+        type: 'color',
+        givenValue: 'fff'
+      },
+      {
+        type: 'color',
+        givenValue: '#gg0'
+      },
+      {
+        type: 'color',
+        givenValue: '#gg00'
+      },
+      {
+        type: 'color',
+        givenValue: '#gg00ff'
+      },
+      {
+        type: 'color',
+        givenValue: '#gg00ff00'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgb(0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgb(0, )'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgb(0, 0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgb(0 0 0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgb(0, 0, 0,)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgb(0, 0, 10%)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgb(0, 10%, 0, 1)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgb(0, 0, 0, 10)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgba(0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgba(0, )'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgba(0, 0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgba(0 0 0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgba(0, 0, 0,)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgba(0, 10%, 0, 1)'
+      },
+      {
+        type: 'color',
+        givenValue: 'rgba(0, 0, 0, 10)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsl(0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsl(0, )'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsl(0, 0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsl(0 0 0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsl(0, 0, 0,)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsl(0, 0, 10%)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsl(0, 10%, 0, 1)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsl(0, 0, 0, 10)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsla(0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsla(0, )'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsla(0, 0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsla(0 0 0)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsla(0, 0, 0,)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsla(0, 10%, 0, 1)'
+      },
+      {
+        type: 'color',
+        givenValue: 'hsla(0, 0, 0, 10)'
+      }
+    ]
+
+    for (let test of tests) {
+      const config = {
+        animated: {
+          color: {
+            type: test.type
+          }
         }
       }
-    }
-    let validator = new Validator(config.animated)
 
-    const givenData = {
-      animatedAttrs: {
-        color: 'rgba(0, 0, 0, 15)'
+      let validator = new Validator(config.animated)
+
+      const givenData = {
+        animatedAttrs: {
+          color: test.givenValue
+        }
       }
-    }
 
-    let validation = validator.validate(givenData.animatedAttrs)
-    expect(validation.valid).toBeFalsy()
-    expect(validation.errors[0].message).toEqual(
-      'The value rgba(0, 0, 0, 15) of the property color is not a valid color'
-    )
+      let validation = validator.validate(givenData.animatedAttrs)
+      expect(validation.valid).toBeFalsy()
+    }
   })
 
   it('should show error when not given a value in required attribute', () => {
