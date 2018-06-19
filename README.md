@@ -1,3 +1,3 @@
 # schema-guard
 
-A configurable schema object validator
+A configurable schema object validator.
