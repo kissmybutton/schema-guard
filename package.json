@@ -1,5 +1,5 @@
 {
-  "name": "schema-guard",
+  "name": "@kissmybutton/schema-guard",
   "version": "1.0.2",
   "description": "An easy schema like object validator",
   "keywords": [],
