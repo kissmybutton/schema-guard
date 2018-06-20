@@ -21,13 +21,24 @@ export default class SchemaGuard {
       throw new Error('Please supply the configuration object')
     }
 
+    let validated = new ValidationResult()
+
+    const attributeValidation = this.validateAttributes(values)
     const relationValidation = this.validateOneToOneRelation(values)
 
-    if (!relationValidation.valid) {
-      return relationValidation
+    if (!attributeValidation.valid) {
+      for (let error of attributeValidation.errors) {
+        validated.addError(error)
+      }
     }
 
-    return this.validateAttributes(values)
+    if (!relationValidation.valid) {
+      for (let error of relationValidation.errors) {
+        validated.addError(error)
+      }
+    }
+
+    return validated
   }
 
   /**
@@ -99,15 +110,21 @@ export default class SchemaGuard {
     let validated = new ValidationResult()
 
     for (const key of Object.keys(attributes)) {
+      if (this.config[key] === undefined) {
+        continue
+      }
+
       if (this.config[key].type === undefined) {
         throw new Error(`Please provide a type property for attribute ${key}`)
       }
 
       let isValidFromValue = this.validateValue(attributes[key], key)
+
       if (!isValidFromValue.valid) {
         validated.addError({ message: isValidFromValue.errors[0].message, property: key })
       }
     }
+
     return validated
   }
 

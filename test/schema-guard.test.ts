@@ -430,24 +430,22 @@ describe('Schema-guard tests', () => {
 
   it('should show error when not given a value in required attribute', () => {
     const config = {
-      animated: {
-        color: {
-          type: 'color',
-          required: [true, 'User phone number required']
-        }
-      }
-    }
-    let validator = new Validator(config.animated)
-
-    const givenData = {
-      animatedAttrs: {
-        test: '#ffffff'
+      name: {
+        type: 'string',
+        required: [true, 'is required']
       }
     }
 
-    let validation = validator.validate(givenData.animatedAttrs)
-    expect(validation.valid).toBeFalsy()
-    expect(validation.errors[0].message).toEqual('User phone number required')
+    const values = {
+      address: ''
+    }
+
+    const validator = new Validator(config)
+    const result = validator.validate(values)
+
+    expect(result.valid).toEqual(false)
+    expect(result.errors.length).toEqual(1)
+    expect(result.errors[0].message).toEqual('is required')
   })
 
   it('should not show error when not given a value for a non required attribute', () => {
@@ -749,5 +747,33 @@ describe('Schema-guard tests', () => {
       expect(validation.valid).toBeTruthy()
       expect(validation.errors.length).toEqual(0)
     }
+  })
+
+  it('should return both attribute and relation errors', () => {
+    const config = {
+      address: {
+        type: 'string',
+        validate: {
+          validator: function(value) {
+            return value !== ''
+          },
+          message: 'cannot be blank'
+        }
+      },
+      name: {
+        type: 'string',
+        required: [true, 'is required']
+      }
+    }
+
+    const values = {
+      address: ''
+    }
+
+    const validator = new Validator(config)
+    const result = validator.validate(values)
+
+    expect(result.valid).toEqual(false)
+    expect(result.errors.length).toEqual(2)
   })
 })
