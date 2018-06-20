@@ -10,22 +10,24 @@ export default class NumberAttributeValidator implements AbstractAttributeValida
       let val = Number(value)
       let min = Number(attributeConfig.minimum)
       if (val < min) {
-        validated.addError(
-          `The value of the property ${fromCamelCase(
+        validated.addError({
+          message: `The value of the property ${fromCamelCase(
             attribute
-          )} is smaller that the minimum required. Minimum value: ${min}`
-        )
+          )} is smaller that the minimum required. Minimum value: ${min}`,
+          property: attribute
+        })
       }
     }
     if (attributeConfig.maximum) {
       let val = Number(value)
       let max = Number(attributeConfig.maximum)
       if (val > max) {
-        validated.addError(
-          `The value of the property ${fromCamelCase(
+        validated.addError({
+          message: `The value of the property ${fromCamelCase(
             attribute
-          )} is bigger that the maximum required. Maximum value: ${max}`
-        )
+          )} is bigger that the maximum required. Maximum value: ${max}`,
+          property: attribute
+        })
       }
     }
 

@@ -84,7 +84,7 @@ export default class SchemaGuard {
     ) {
       hasValidCustomValidators = attributeConfig.validate.validator(value)
       if (!hasValidCustomValidators) {
-        validated.addError(attributeConfig.validate.message)
+        validated.addError({ message: attributeConfig.validate.message, property: '' })
       }
     }
   }
@@ -105,7 +105,7 @@ export default class SchemaGuard {
 
       let isValidFromValue = this.validateValue(attributes[key], key)
       if (!isValidFromValue.valid) {
-        validated.addError(isValidFromValue.errors[0].message)
+        validated.addError({ message: isValidFromValue.errors[0].message, property: key })
       }
     }
     return validated
@@ -125,7 +125,7 @@ export default class SchemaGuard {
 
     for (const key of Object.keys(this.config)) {
       if (values[key] === undefined && this.config[key].required && this.config[key].required[0]) {
-        validated.addError(this.config[key].required[1])
+        validated.addError({ message: this.config[key].required[1], property: key })
         break
       }
     }

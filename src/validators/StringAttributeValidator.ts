@@ -8,7 +8,7 @@ export default class StringAttributeValidator implements AbstractAttributeValida
     let validated = new ValidationResult()
     let result = this.validateUnits(attribute, value, attributeConfig)
     if (!result.valid) {
-      validated.addError(result.errors[0].message)
+      validated.addError({ message: result.errors[0].message, property: attribute })
     }
 
     return validated
@@ -23,9 +23,10 @@ export default class StringAttributeValidator implements AbstractAttributeValida
     let splitNumberAndUnits = value.match(splitNumberAndUnitsRegex) as string[]
 
     if (config.units.enum.indexOf(splitNumberAndUnits[2]) === -1) {
-      validated.addError(
-        `The attribute ${attribute} doesn't allow '${splitNumberAndUnits[2]}' as units`
-      )
+      validated.addError({
+        message: `The attribute ${attribute} doesn't allow '${splitNumberAndUnits[2]}' as units`,
+        property: attribute
+      })
     }
 
     return validated

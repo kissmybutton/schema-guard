@@ -16,10 +16,13 @@ export default class ValidationResult {
     return this.errors.length === 0
   }
 
-  addError(message: string) {
-    if (!message) throw new Error('Missing error message')
-    const error = new ValidationError(message)
-    this.errors.push(error)
-    return error
+  addError(error: ValidationError) {
+    if (!error.message) throw new Error('Missing error message!')
+
+    const err = new ValidationError(error)
+
+    this.errors.push(err)
+
+    return err
   }
 }

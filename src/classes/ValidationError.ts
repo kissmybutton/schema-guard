@@ -1,12 +1,14 @@
 /**
  * Our Error class.
- * Takes the message as parameter in the constructor
+ * Takes the error object as parameter in the constructor
  * TODO expand this for more detail.
  */
 export default class ValidationError {
   public message: string
+  public property: string
 
-  constructor(message: string) {
-    this.message = message
+  constructor(error: ValidationError) {
+    this.message = error.message
+    this.property = error.property
   }
 }

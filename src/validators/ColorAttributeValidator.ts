@@ -8,9 +8,12 @@ export default class ColorAttributeValidator implements AbstractAttributeValidat
     let validated = new ValidationResult()
 
     if (!isColor(value)) {
-      validated.addError(
-        `The value ${value} of the property ${fromCamelCase(attribute)} is not a valid color`
-      )
+      validated.addError({
+        message: `The value ${value} of the property ${fromCamelCase(
+          attribute
+        )} is not a valid color`,
+        property: attribute
+      })
     }
 
     return validated

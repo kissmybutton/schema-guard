@@ -29,11 +29,12 @@ export default class BasicAttributeValidator {
     let validated = new ValidationResult()
     let hasValidType = this.basicAttributeValidations[attributeConfig.type](value)
     if (!hasValidType) {
-      validated.addError(
-        `The value of the property ${fromCamelCase(attribute)} is different that the defined: ${
-          attributeConfig.type
-        }`
-      )
+      validated.addError({
+        message: `The value of the property ${fromCamelCase(
+          attribute
+        )} is different that the defined: ${attributeConfig.type}`,
+        property: attribute
+      })
     }
     return validated
   }
