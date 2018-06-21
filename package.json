@@ -1,6 +1,6 @@
 {
   "name": "@kissmybutton/schema-guard",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "An easy schema like object validator",
   "keywords": [],
   "main": "dist/schema-guard.umd.js",
