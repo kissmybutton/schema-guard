@@ -36,6 +36,15 @@
     node-fetch "^2.1.1"
     url-template "^2.0.8"
 
+"@semantic-release/changelog@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@semantic-release/changelog/-/changelog-2.0.2.tgz#9972738dc97cf8b516f4200b8ee92e708e415d65"
+  dependencies:
+    "@semantic-release/error" "^2.1.0"
+    aggregate-error "^1.0.0"
+    fs-extra "^6.0.0"
+    lodash "^4.17.4"
+
 "@semantic-release/commit-analyzer@^5.0.0":
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@semantic-release/commit-analyzer/-/commit-analyzer-5.0.3.tgz#f2b674d30207b49b77d905ad5850d7aefd8838dd"
@@ -46,13 +55,46 @@
     import-from "^2.1.0"
     lodash "^4.17.4"
 
-"@semantic-release/error@^2.2.0":
+"@semantic-release/error@^2.1.0", "@semantic-release/error@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@semantic-release/error/-/error-2.2.0.tgz#ee9d5a09c9969eade1ec864776aeda5c5cddbbf0"
+
+"@semantic-release/git@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@semantic-release/git/-/git-5.0.0.tgz#13703fca8f8c8c03066b0d005ee6a8c0119c3164"
+  dependencies:
+    "@semantic-release/error" "^2.1.0"
+    aggregate-error "^1.0.0"
+    debug "^3.1.0"
+    dir-glob "^2.0.0"
+    execa "^0.10.0"
+    fs-extra "^6.0.0"
+    lodash "^4.17.4"
+    micromatch "^3.1.4"
+    p-reduce "^1.0.0"
 
 "@semantic-release/github@^4.1.0":
   version "4.2.15"
   resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-4.2.15.tgz#8a04a972c59cca0607cd83ea25a73c21118635ae"
+  dependencies:
+    "@octokit/rest" "^15.2.0"
+    "@semantic-release/error" "^2.2.0"
+    aggregate-error "^1.0.0"
+    bottleneck "^2.0.1"
+    debug "^3.1.0"
+    fs-extra "^6.0.0"
+    globby "^8.0.0"
+    issue-parser "^2.0.0"
+    lodash "^4.17.4"
+    mime "^2.0.3"
+    p-filter "^1.0.0"
+    p-retry "^2.0.0"
+    parse-github-url "^1.0.1"
+    url-join "^4.0.0"
+
+"@semantic-release/github@^4.2.17":
+  version "4.2.17"
+  resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-4.2.17.tgz#1d3f465b4bdbc57ecfcb55aefdc554804a8cbc76"
   dependencies:
     "@octokit/rest" "^15.2.0"
     "@semantic-release/error" "^2.2.0"
@@ -80,6 +122,23 @@
     lodash "^4.17.4"
     nerf-dart "^1.0.0"
     normalize-url "^2.0.1"
+    read-pkg "^3.0.0"
+    registry-auth-token "^3.3.1"
+
+"@semantic-release/npm@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@semantic-release/npm/-/npm-3.3.1.tgz#0b08b5a691144e9311e7ebfce5b94b13387d9b98"
+  dependencies:
+    "@semantic-release/error" "^2.2.0"
+    aggregate-error "^1.0.0"
+    detect-indent "^5.0.0"
+    detect-newline "^2.1.0"
+    execa "^0.10.0"
+    fs-extra "^6.0.0"
+    lodash "^4.17.4"
+    nerf-dart "^1.0.0"
+    normalize-url "^3.0.0"
+    parse-json "^4.0.0"
     read-pkg "^3.0.0"
     registry-auth-token "^3.3.1"
 
@@ -1688,6 +1747,10 @@ detect-indent@4.0.0, detect-indent@^4.0.0:
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-4.0.0.tgz#f76d064352cdf43a1cb6ce619c4ee3a9475de208"
   dependencies:
     repeating "^2.0.0"
+
+detect-indent@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-5.0.0.tgz#3871cc0a6a002e8c3e5b3cf7f336264675f06b9d"
 
 detect-libc@^1.0.2:
   version "1.0.3"
@@ -4186,6 +4249,10 @@ normalize-url@2.0.1, normalize-url@^2.0.1:
     prepend-http "^2.0.0"
     query-string "^5.0.1"
     sort-keys "^2.0.0"
+
+normalize-url@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.0.1.tgz#2cff7f20468c75e0e968552b7caac77a51ebcae6"
 
 npm-bundled@^1.0.1:
   version "1.0.3"
