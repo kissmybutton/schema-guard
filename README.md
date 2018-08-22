@@ -4,6 +4,18 @@
 
 A configurable schema object validator.
 
+### Installation
+
+schema-guard is available as an [npm package](https://www.npmjs.com/package/@kissmybutton/schema-guard).
+
+```sh
+// with npm
+npm install @kissmybutton/schema-guard
+
+// with yarn
+yarn add @kissmybutton/schema-guard
+```
+
 ### Usage
 
 ```javascript
@@ -45,6 +57,16 @@ npm install
 ### Features
 
  - Zero-setup. After running `npm install` things will setup for you :wink:
+
+### Allowed types
+Property | Type | Required | Description
+-------- | ---- | -------- | -----------
+`type` | String | ✓ | The type definition of the attribute type
+`required` | Array | |  If defined, the required attribute is an array where the first item is the flag whether or not the attribute is required, and the second item of the array is the custom error message text: ```required: [true, 'is required']```
+`validate` | Function | | If defined, the validate attribute is a function that adds the ability of custom implementations for validations. Example: ```validate: { validator: function(v) {  return /\d{4}/.test(v) }, message: 'my custom message'},``` This will validate the input to be exactly 4 digits long. 
+`minimum` | Number | | When defining type of number or integer, you can define minimum value so that it validates that the value is equal or greater than the defined value
+`maximum` | Number | | When defining type of number or integer, you can define maximum value so that it validates that the value is equal or smaller than the defined value
+`units` | Object | | If defined, you must also define an enum property which is an array of strings. Each item in that array is of type ```string``` and the given string that is to be validated must include at least one of the defined units.
 
 ## Contributing
 

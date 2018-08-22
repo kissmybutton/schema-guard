@@ -470,6 +470,17 @@ describe('Schema-guard tests', () => {
     }
 
     let validation = validator.validate(givenData.animatedAttrs)
+
+    let validator2 = new Validator({})
+
+    const givenData2 = {
+      animatedAttrs: {
+        color: '#ffffff'
+      }
+    }
+
+    let validation2 = validator.validate(givenData2.animatedAttrs)
+
     expect(validation.valid).toBeTruthy()
     expect(validation.errors.length).toEqual(0)
   })
