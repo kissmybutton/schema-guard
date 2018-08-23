@@ -16,6 +16,10 @@ npm install @kissmybutton/schema-guard
 yarn add @kissmybutton/schema-guard
 ```
 
+### Demo
+
+Online demo [here](https://codesandbox.io/s/n9vpj4j404)
+
 ### Usage
 
 ```javascript
