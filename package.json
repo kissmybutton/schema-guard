@@ -1,6 +1,6 @@
 {
   "name": "@kissmybutton/schema-guard",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "An easy schema like object validator",
   "keywords": [],
   "main": "dist/schema-guard.umd.js",
@@ -29,7 +29,7 @@
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "commit": "git-cz",
-    "semantic-release": "semantic-release --debug",
+    "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
     "prepush": "npm run test:prod && npm run build",
