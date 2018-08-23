@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/kissmybutton/schema-guard/compare/v1.0.0...v1.0.1) (2018-08-23)
+
+
+### Bug Fixes
+
+* fix package.json ([8d8f7ad](https://github.com/kissmybutton/schema-guard/commit/8d8f7ad))
+
 <a name="1.0.0"></a>
 # 1.0.0 (2018-06-21)
 
